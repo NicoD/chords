@@ -19,8 +19,6 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
 import helloAccessor from "../../store/hello";
 import HelloWord from "../hello-word/hello-word.vue";
-// import HelloWord from "../hello-word/hello-word-tsx";
-// import HelloWord from "../hello-word/hello-word-extend.vue";
 
 @Component({
     components: {

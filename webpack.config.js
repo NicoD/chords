@@ -6,8 +6,8 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
   entry: './src/index.ts',
   output: {
-    path: path.resolve(__dirname, './dist'),
-    publicPath: 'dist/',
+    path: path.resolve(__dirname, './public/dist'),
+    publicPath: 'public/dist',
     filename: 'index.js'
   },
   module: {
@@ -72,7 +72,11 @@ module.exports = {
   },
   devServer: {
     hot: true,
-    stats: 'minimal'
+    stats: 'minimal',
+    contentBase: path.join(__dirname, 'public'),
+    compress: true,
+    port: 9000
+
   },
   performance: {
     hints: false
