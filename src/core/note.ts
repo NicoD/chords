@@ -1,7 +1,8 @@
 export class Note {
-    public readonly name: string;
+    constructor (public name: string, public octave: Number) {
+    }
 
-    constructor (name: string) {
-        this.name = name;
+    public get SPNname(): string {
+        return this.name + this.octave;
     }
 }

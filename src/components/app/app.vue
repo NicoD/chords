@@ -1,66 +1,43 @@
 <template>
     <div class="app">
-        <div class="app-header">
-            <img src="../../assets/images/logo-vue.png" class="app-logo" alt="logo" />
-            <h2>Welcome to Vue</h2>
-        </div>
-        <p class="app-intro">
-            To get started, edit
-            <code>src/components/app/app.vue</code> and save to reload.
-        </p>
-        <hello-word name="word" 
-            :enthusiasmLevel="enthusiasmLevel"
-            @onDecrement="onDecrement"
-            @onIncrement="onIncrement"/>
+        <h2>Chords</h2>
+        <guitare-neck 
+            :tuning="tuning"
+            :show-frets.sync="showFrets"
+            :show-markers.sync="showMarkers"
+            :nb-intervals="nbIntervals" 
+        />
+        <a href="#" @click="showFrets = !showFrets">Show/hide frets</a>
+        <br>
+        <a href="#" @click="showMarkers = !showMarkers">Show/hide markers</a>
     </div>
 </template>
-
-<script lang="ts">
-import { Vue, Component, Prop } from "vue-property-decorator";
-import helloAccessor from "../../store/hello";
-import HelloWord from "../hello-word/hello-word.vue";
-
-@Component({
-    components: {
-        HelloWord
-    }
-})
-export default class App extends Vue {
-    public get enthusiasmLevel(): number {
-        return helloAccessor.enthusiasmLevel(this.$store);
-    }
-
-    public onIncrement(): void {
-        helloAccessor.increment(this.$store, 1);
-    }
-
-    public onDecrement(): void {
-        if(this.enthusiasmLevel <= 1) {
-            return;
-        }
-
-        helloAccessor.decrement(this.$store, 1);
-    }
-}
-</script>
 
 <style scoped lang="scss">
 .app {
     text-align: center;
 }
-
-.app-logo {
-    height: 80px;
-}
-
-.app-header {
-    background-color: #222;
-    height: 150px;
-    padding: 20px;
-    color: white;
-}
-
-.app-intro {
-    font-size: large;
-}
 </style>
+
+<script lang="ts">
+import { Vue, Component, Prop } from "vue-property-decorator";
+import GuitareNeck from "../guitare/neck.vue";
+import { Tuning, createStandard as createStandardTuning } from "../../core/guitare/tuning"
+
+@Component({
+    components: {
+        GuitareNeck
+    }
+})
+
+export default class App extends Vue {
+    tuning: Tuning | null = null
+    showFrets: Boolean = true
+    showMarkers: Boolean = true
+    nbIntervals: Number = 24
+
+    created() {
+        this.tuning = createStandardTuning();
+    }
+}
+</script>
